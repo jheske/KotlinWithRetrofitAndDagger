@@ -1,10 +1,11 @@
 package com.example.commentsold.data.network
 
-import com.example.commentsold.data.network.response.ProductsPageResponse
-import com.example.commentsold.data.network.response.StatusResponse
+import com.example.commentsold.data.network.model.ProductsPage
+import com.example.commentsold.data.network.model.StatusResponse
 import retrofit2.Response
 import retrofit2.http.GET
 import retrofit2.http.Header
+import retrofit2.http.Query
 
 interface ApiService {
 
@@ -13,15 +14,15 @@ interface ApiService {
         @Header("Authorization") authorization: String
     ): Response<StatusResponse>
 
-    @GET("productResponses")
+    @GET("products")
     suspend fun getProducts(
-    ): Response<ProductsPageResponse>
+        @Query("page") page: Int=0,
+        @Query("limit") limit: Int=10
+    ):  ProductsPage
 
     @GET("product")
-    suspend fun getProduct(
-    ): Response<StatusResponse>
+    suspend fun getProduct(): Response<StatusResponse>
 
     @GET("styles")
-    suspend fun getStyles(
-    ): Response<StatusResponse>
+    suspend fun getStyles(): Response<StatusResponse>
 }

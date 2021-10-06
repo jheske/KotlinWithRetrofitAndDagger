@@ -1,4 +1,4 @@
-package com.example.commentsold.data.network.response
+package com.example.commentsold.data.network.model
 
 data class StatusResponse(
     val token: String,

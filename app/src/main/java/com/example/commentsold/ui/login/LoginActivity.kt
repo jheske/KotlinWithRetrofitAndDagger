@@ -1,8 +1,6 @@
 package com.example.commentsold.ui.login
 
-import android.app.Activity
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
 import android.util.Log
 import androidx.annotation.StringRes
@@ -12,10 +10,9 @@ import android.view.inputmethod.EditorInfo
 import android.widget.Toast
 import androidx.activity.viewModels
 import com.example.commentsold.databinding.ActivityLoginBinding
-
-import com.example.commentsold.R
 import com.example.commentsold.data.network.NetworkResult
 import com.example.commentsold.di.SessionManager
+import com.example.commentsold.ui.products.ProductsActivity
 import com.example.commentsold.utils.afterTextChanged
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
@@ -23,8 +20,12 @@ import javax.inject.Inject
 @AndroidEntryPoint
 class LoginActivity : AppCompatActivity() {
 
+    companion object {
+        const val TAG = "LoginActivity"
+    }
+
     private lateinit var binding: ActivityLoginBinding
-    private val loginViewModel by viewModels<LoginViewModel>()
+    private val viewModel by viewModels<LoginViewModel>()
 
     @Inject
     lateinit var sessionManager: SessionManager
@@ -40,7 +41,7 @@ class LoginActivity : AppCompatActivity() {
         val login = binding.login
         val loading = binding.loading
 
-        loginViewModel.loginFormState.observe(this@LoginActivity, Observer {
+        viewModel.loginFormState.observe(this@LoginActivity, Observer {
             val loginState = it ?: return@Observer
 
             // disable login button unless username / password is valid
@@ -54,12 +55,14 @@ class LoginActivity : AppCompatActivity() {
             }
         })
 
-        loginViewModel.loginResult.observe(this) { response ->
+        viewModel.loginResult.observe(this) { response ->
             when (response) {
                 is NetworkResult.Success -> {
                     loading.visibility = View.GONE
                     response.data?.let {
                         sessionManager.saveAuthToken(it.token)
+                       // viewModel.getProducts()
+                        startActivity(ProductsActivity.intent(this))
                     }
                 }
 
@@ -71,24 +74,12 @@ class LoginActivity : AppCompatActivity() {
             }
         }
 
-//        loginViewModel.loginResult.observe(this@LoginActivity, Observer {
-//            val loginResult = it ?: return@Observer
-//
-//            loading.visibility = View.GONE
-//            if (loginResult.error != null) {
-//                showLoginFailed(loginResult.error)
-//            }
-//            if (loginResult.success != null) {
-//                updateUiWithUser(loginResult.success)
-//            }
-//            setResult(Activity.RESULT_OK)
-//
-//            //Complete and destroy login activity once successful
-//            finish()
-//        })
+//        viewModel.products.observe(this) {
+//            Log.d(TAG,"Page received")
+//        }
 
         username.afterTextChanged {
-            loginViewModel.loginDataChanged(
+            viewModel.loginDataChanged(
                 username.text.toString(),
                 password.text.toString()
             )
@@ -96,7 +87,7 @@ class LoginActivity : AppCompatActivity() {
 
         password.apply {
             afterTextChanged {
-                loginViewModel.loginDataChanged(
+                viewModel.loginDataChanged(
                     username.text.toString(),
                     password.text.toString()
                 )
@@ -105,7 +96,7 @@ class LoginActivity : AppCompatActivity() {
             setOnEditorActionListener { _, actionId, _ ->
                 when (actionId) {
                     EditorInfo.IME_ACTION_DONE ->
-                        loginViewModel.login(
+                        viewModel.login(
                             username.text.toString(),
                             password.text.toString()
                         )
@@ -115,7 +106,7 @@ class LoginActivity : AppCompatActivity() {
 
             login.setOnClickListener {
                 loading.visibility = View.VISIBLE
-                loginViewModel.login(username.text.toString(), password.text.toString())
+                viewModel.login(username.text.toString(), password.text.toString())
             }
         }
     }

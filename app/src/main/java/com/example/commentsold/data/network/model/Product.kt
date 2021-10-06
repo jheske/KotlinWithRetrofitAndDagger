@@ -1,6 +1,6 @@
-package com.example.commentsold.data.network.response
+package com.example.commentsold.data.network.model
 
-data class ProductResponse(
+data class Product(
     val admin_id: Int,
     val brand: String,
     val created_at: String,

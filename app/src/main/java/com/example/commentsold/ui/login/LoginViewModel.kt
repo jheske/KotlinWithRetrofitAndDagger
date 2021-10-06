@@ -9,7 +9,8 @@ import androidx.lifecycle.viewModelScope
 import com.example.commentsold.data.repository.Repository
 import com.example.commentsold.R
 import com.example.commentsold.data.network.NetworkResult
-import com.example.commentsold.data.network.response.StatusResponse
+import com.example.commentsold.data.network.model.ProductsPage
+import com.example.commentsold.data.network.model.StatusResponse
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
@@ -17,8 +18,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class LoginViewModel @Inject constructor(
-    private val repository: Repository,
-    private val sharedPrefs: SharedPreferences
+    private val repository: Repository
 ) : ViewModel() {
 
     private val _loginForm = MutableLiveData<LoginFormState>()
@@ -26,6 +26,9 @@ class LoginViewModel @Inject constructor(
 
     private val _loginResult: MutableLiveData<NetworkResult<StatusResponse>> = MutableLiveData()
     val loginResult: LiveData<NetworkResult<StatusResponse>> = _loginResult
+
+    private val _products: MutableLiveData<NetworkResult<ProductsPage>> = MutableLiveData()
+    val products: LiveData<NetworkResult<ProductsPage>> = _products
 
     fun login(username: String, password: String) =
         viewModelScope.launch {

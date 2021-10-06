@@ -23,6 +23,11 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".ui.products.ProductsActivity"
+            android:exported="true"
+            android:label="@string/products">
+        </activity>
     </application>
 
 </manifest>

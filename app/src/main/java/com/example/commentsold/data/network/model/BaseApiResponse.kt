@@ -1,4 +1,4 @@
-package com.example.commentsold.data.network.response
+package com.example.commentsold.data.network.model
 
 import com.example.commentsold.data.network.NetworkResult
 import retrofit2.Response
