@@ -9,6 +9,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.paging.LoadState
+import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.commentsold.databinding.FragmentProductsBinding
 import com.example.commentsold.ui.test.Event
@@ -52,8 +53,7 @@ class ProductListFragment : Fragment() {
 
     private fun setupBinding() {
         binding.productRecyclerView.apply {
-            layoutManager = LinearLayoutManager(context)
-            // addItemDecoration(VerticalSpaceItemDecoration(resources.getDimensionPixelSize(R.dimen.list_item_decoration)))
+            layoutManager = GridLayoutManager(context,2)
             initAdapter()
         }
     }

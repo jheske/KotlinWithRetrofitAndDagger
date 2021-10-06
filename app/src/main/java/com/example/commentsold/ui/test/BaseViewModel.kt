@@ -6,11 +6,12 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import kotlinx.coroutines.Job
 
-abstract class BaseViewModel<ViewState : BaseViewState,
-        ViewAction : BaseViewEffect,
-        Event: BaseEvent,
-        Result: BaseResult>(initialState: ViewState) :
-    ViewModel() {
+abstract class BaseViewModel<ViewState : BaseViewState,  ViewAction : BaseViewEffect,
+        Event: BaseEvent, Result: BaseResult>(initialState: ViewState) :  ViewModel() {
+
+    companion object {
+        const val TAG = "BaseViewModel"
+    }
 
     internal val viewStateLD = MutableLiveData<ViewState>()
     private val viewEffectLD = MutableLiveData<ViewAction>()
@@ -20,12 +21,12 @@ abstract class BaseViewModel<ViewState : BaseViewState,
     var loadJob: Job? = null
 
     fun onEvent(event: Event) {
-        Log.d("Zivi","----- event ${event.javaClass.simpleName}")
+        Log.d(TAG,"----- event ${event.javaClass.simpleName}")
         eventToResult(event)
     }
 
     suspend fun onSuspendedEvent(event: Event) {
-        Log.d("Zivi","----- suspend event ${event.javaClass.simpleName}")
+        Log.d(TAG,"----- suspend event ${event.javaClass.simpleName}")
         suspendEventToResult(event)
     }
 
