@@ -8,9 +8,10 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
 import com.example.commentsold.databinding.FragmentProductsBinding
-import com.example.commentsold.ui.test.Event
-import com.example.commentsold.ui.test.ListViewState
+import com.example.commentsold.ui.common.Event
+import com.example.commentsold.ui.common.ListViewState
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
@@ -25,7 +26,7 @@ class ProductListFragment : Fragment() {
     private lateinit var binding: FragmentProductsBinding
     lateinit var recyclerViewAdapter: ProductRecyclerAdapter
 
-        override fun onCreateView(
+    override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -50,7 +51,7 @@ class ProductListFragment : Fragment() {
             initAdapter()
         }
         binding.addProductFab.setOnClickListener {
-            Log.d("TAG","FAB!")
+            findNavController().navigate(ProductListFragmentDirections.actionProductListFragmentToAddProductFragment())
         }
     }
 

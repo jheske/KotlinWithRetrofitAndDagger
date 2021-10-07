@@ -20,9 +20,25 @@
     <string name="product_name">Product Name</string>
     <string name="product_id">Product Id</string>
     <string name="product_type">Product Type</string>
-    <string name="shipping_price">Shipping Price</string>
+    <string name="price">Shipping Price</string>
     <string name="style">Style</string>
     <string name="url">Url</string>
+<!--
+ val productIdError: Int?=null,
+    val brandError: Int?=null,
+    val productNameError: Int?=null,
+    val productTypeError: Int?=null,
+    val styleError: Int?=null,
+    val priceError: Int?=null,
+    val descriptionError: Int?=null,
+    val isDataValid: Boolean = false-->
+    <string name="invalid_product_id">Product ID cannot be empty</string>
+    <string name="invalid_product_name">Product name cannot be empty</string>
+    <string name="invalid_product_type">Product type cannot be empty</string>
+    <string name="invalid_brand">Brand cannot be empty</string>
+    <string name="invalid_style">Style cannot be empty</string>
+    <string name="invalid_price">Price cannot be empty</string>
+    <string name="invalid_description">Description cannot be empty</string>
 
     <!-- Tools text -->
     <string name="lorem_ipsum_title">Lorem ipsum</string>

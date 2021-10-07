@@ -1,4 +1,4 @@
-package com.example.commentsold.ui.test
+package com.example.commentsold.ui.common
 
 import android.view.View
 import androidx.paging.CombinedLoadStates

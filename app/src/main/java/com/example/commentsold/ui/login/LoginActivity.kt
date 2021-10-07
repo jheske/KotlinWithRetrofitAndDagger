@@ -2,11 +2,13 @@ package com.example.commentsold.ui.login
 
 import androidx.lifecycle.Observer
 import android.os.Bundle
-import android.util.Log
 import androidx.annotation.StringRes
 import androidx.appcompat.app.AppCompatActivity
 import android.view.View
 import android.view.inputmethod.EditorInfo
+import android.widget.Button
+import android.widget.EditText
+import android.widget.ProgressBar
 import android.widget.Toast
 import androidx.activity.viewModels
 import com.example.commentsold.databinding.ActivityLoginBinding
@@ -25,6 +27,10 @@ class LoginActivity : AppCompatActivity() {
     }
 
     private lateinit var binding: ActivityLoginBinding
+    private lateinit var username: EditText
+    private lateinit var password: EditText
+    private lateinit var login: Button
+    private lateinit var loading: ProgressBar
     private val viewModel by viewModels<LoginViewModel>()
 
     @Inject
@@ -36,48 +42,12 @@ class LoginActivity : AppCompatActivity() {
         binding = ActivityLoginBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        val username = binding.username
-        val password = binding.password
-        val login = binding.login
-        val loading = binding.loading
+        bindViews()
+        setupObservers()
+        setupTextListeners()
+    }
 
-        viewModel.loginFormState.observe(this@LoginActivity, Observer {
-            val loginState = it ?: return@Observer
-
-            // disable login button unless username / password is valid
-            login.isEnabled = loginState.isDataValid
-
-            if (loginState.usernameError != null) {
-                username.error = getString(loginState.usernameError)
-            }
-            if (loginState.passwordError != null) {
-                password.error = getString(loginState.passwordError)
-            }
-        })
-
-        viewModel.loginResult.observe(this) { response ->
-            when (response) {
-                is NetworkResult.Success -> {
-                    loading.visibility = View.GONE
-                    response.data?.let {
-                        sessionManager.saveAuthToken(it.token)
-                       // viewModel.getProducts()
-                        startActivity(ProductsActivity.intent(this))
-                    }
-                }
-
-                is NetworkResult.Error -> {
-                    loading.visibility = View.GONE
-                }
-                is NetworkResult.Loading -> {
-                }
-            }
-        }
-
-//        viewModel.products.observe(this) {
-//            Log.d(TAG,"Page received")
-//        }
-
+    private fun setupTextListeners() {
         username.afterTextChanged {
             viewModel.loginDataChanged(
                 username.text.toString(),
@@ -107,6 +77,47 @@ class LoginActivity : AppCompatActivity() {
             login.setOnClickListener {
                 loading.visibility = View.VISIBLE
                 viewModel.login(username.text.toString(), password.text.toString())
+            }
+        }
+    }
+
+    private fun bindViews() {
+        username = binding.username
+        password = binding.password
+        login = binding.login
+        loading = binding.loading
+    }
+
+    private fun setupObservers() {
+        viewModel.loginFormState.observe(this@LoginActivity, Observer {
+            val loginState = it ?: return@Observer
+
+            // disable login button unless username / password is valid
+            login.isEnabled = loginState.isDataValid
+
+            if (loginState.usernameError != null) {
+                username.error = getString(loginState.usernameError)
+            }
+            if (loginState.passwordError != null) {
+                password.error = getString(loginState.passwordError)
+            }
+        })
+
+        viewModel.loginResult.observe(this) { response ->
+            when (response) {
+                is NetworkResult.Success -> {
+                    loading.visibility = View.GONE
+                    response.data?.let {
+                        sessionManager.saveAuthToken(it.token)
+                        startActivity(ProductsActivity.intent(this))
+                    }
+                }
+
+                is NetworkResult.Error -> {
+                    loading.visibility = View.GONE
+                }
+                is NetworkResult.Loading -> {
+                }
             }
         }
     }

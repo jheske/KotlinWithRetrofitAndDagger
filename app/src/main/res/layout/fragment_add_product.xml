@@ -1,192 +1,139 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    android:layout_height="match_parent">
 
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/idTextLayout"
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:hint="@string/product_id"
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-        android:layout_marginHorizontal="@dimen/material_large"
-        android:layout_marginTop="@dimen/material_large"
-        app:layout_constraintTop_toTopOf="parent">
+        android:layout_height="wrap_content">
 
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/idEditText"
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/productNameTextLayout"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:lines="1"
-            android:singleLine="false"
-            android:text="@={viewModel.productId}"
-            android:gravity="top" />
-    </com.google.android.material.textfield.TextInputLayout>
+            android:layout_height="0dp"
+            android:layout_marginHorizontal="@dimen/material_large"
+            android:layout_marginTop="@dimen/material_large"
+            android:hint="@string/product_name"
+            app:layout_constraintTop_toTopOf="parent">
 
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/brandTextLayout"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:hint="@string/brand"
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-        android:layout_marginHorizontal="@dimen/material_large"
-        android:layout_marginTop="@dimen/material_large"
-        app:layout_constraintTop_toBottomOf="@id/idTextLayout">
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/productNameEditText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="New Product 1"
+                android:gravity="top"
+                android:lines="1"
+                android:singleLine="false" />
+        </com.google.android.material.textfield.TextInputLayout>
 
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/brandEditText"
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/descriptionTextLayout"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:lines="1"
-            android:singleLine="false"
-            android:text="@={viewModel.brand}"
-            android:gravity="top" />
-    </com.google.android.material.textfield.TextInputLayout>
+            android:layout_height="0dp"
+            android:layout_marginHorizontal="@dimen/material_large"
+            android:layout_marginTop="@dimen/material_large"
+            android:hint="@string/description"
+            app:layout_constraintTop_toBottomOf="@id/productNameTextLayout">
 
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/productNameTextLayout"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:hint="@string/product_name"
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-        android:layout_marginHorizontal="@dimen/material_large"
-        android:layout_marginTop="@dimen/material_large"
-        app:layout_constraintTop_toBottomOf="@id/brandTextLayout">
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/descriptionEditText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Description of my new product"
+                android:gravity="top"
+                android:lines="3"
+                android:singleLine="false" />
+        </com.google.android.material.textfield.TextInputLayout>
 
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/productNameEditText"
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/styleTextLayout"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:lines="1"
-            android:singleLine="false"
-            android:text="@={viewModel.productName}"
-            android:gravity="top" />
-    </com.google.android.material.textfield.TextInputLayout>
+            android:layout_height="0dp"
+            android:layout_marginHorizontal="@dimen/material_large"
+            android:layout_marginTop="@dimen/material_large"
+            android:hint="@string/style"
+            app:layout_constraintTop_toBottomOf="@id/descriptionTextLayout">
 
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/productTypeTextLayout"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:hint="@string/product_type"
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-        android:layout_marginHorizontal="@dimen/material_large"
-        android:layout_marginTop="@dimen/material_large"
-        app:layout_constraintTop_toBottomOf="@id/productNameTextLayout">
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/styleEditText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="My Product's Style"
+                android:gravity="top"
+                android:lines="1"
+                android:singleLine="false" />
+        </com.google.android.material.textfield.TextInputLayout>
 
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/productTypeEditText"
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/brandTextLayout"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:lines="1"
-            android:singleLine="false"
-            android:text="@={viewModel.productType}"
-            android:gravity="top" />
-    </com.google.android.material.textfield.TextInputLayout>
+            android:layout_height="0dp"
+            android:layout_marginHorizontal="@dimen/material_large"
+            android:layout_marginTop="@dimen/material_large"
+            android:hint="@string/brand"
+            app:layout_constraintTop_toBottomOf="@+id/styleTextLayout">
 
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/styleTextLayout"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:hint="@string/style"
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-        android:layout_marginHorizontal="@dimen/material_large"
-        android:layout_marginTop="@dimen/material_large"
-        app:layout_constraintTop_toBottomOf="@id/productTypeTextLayout">
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/brandEditText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="My favorite brand"
+                android:gravity="top"
+                android:lines="1"
+                android:singleLine="false" />
+        </com.google.android.material.textfield.TextInputLayout>
 
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/styleEditText"
+        <!-- Save and Cancel buttons -->
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/priceTextLayout"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginHorizontal="@dimen/material_large"
+            android:layout_marginTop="@dimen/material_large"
+            android:hint="@string/price"
+            app:layout_constraintTop_toBottomOf="@id/brandTextLayout">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/priceEditText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="240"
+                android:gravity="top"
+                android:inputType="numberDecimal"
+                android:lines="1"
+                android:singleLine="false" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/saveButton"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:lines="1"
-            android:singleLine="false"
-            android:text="@={viewModel.style}"
-            android:gravity="top" />
-    </com.google.android.material.textfield.TextInputLayout>
+            android:layout_marginTop="@dimen/material_xlarge"
+            android:layout_marginBottom="@dimen/material_xlarge"
+            android:enabled="false"
+            android:text="@string/save"
+            app:iconGravity="start"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/cancelButton"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/priceTextLayout" />
 
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/descriptionTextLayout"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:hint="@string/description"
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-        android:layout_marginHorizontal="@dimen/material_large"
-        android:layout_marginTop="@dimen/material_large"
-        app:layout_constraintTop_toBottomOf="@id/styleTextLayout">
-
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/descriptionEditText"
-            android:layout_width="match_parent"
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/cancelButton"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:lines="1"
-            android:singleLine="false"
-            android:text="@={viewModel.description}"
-            android:gravity="top" />
-    </com.google.android.material.textfield.TextInputLayout>
+            android:text="@string/cancel"
+            app:iconGravity="start"
+            app:layout_constraintBottom_toBottomOf="@id/saveButton"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/saveButton"
+            app:layout_constraintTop_toTopOf="@id/saveButton" />
 
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/priceTextLayout"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:hint="@string/shipping_price"
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-        android:layout_marginHorizontal="@dimen/material_large"
-        android:layout_marginTop="@dimen/material_large"
-        app:layout_constraintTop_toBottomOf="@id/descriptionTextLayout">
-
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/priceEditText"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:lines="1"
-            android:singleLine="false"
-            android:text="@={viewModel.price}"
-            android:gravity="top" />
-    </com.google.android.material.textfield.TextInputLayout>
-
-
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/noteTextLayout"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:hint="@string/note"
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-        android:layout_marginHorizontal="@dimen/material_large"
-        android:layout_marginTop="@dimen/material_large"
-        app:layout_constraintTop_toBottomOf="@id/priceTextLayout">
-
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/noteEditText"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:lines="1"
-            android:singleLine="false"
-            android:text="@={viewModel.note}"
-            android:gravity="top" />
-    </com.google.android.material.textfield.TextInputLayout>
-
-    <!-- Save and Cancel buttons -->
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/saveButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/save"
-        android:layout_marginTop="@dimen/material_xlarge"
-        android:layout_marginBottom="@dimen/material_xlarge"
-        app:iconGravity="start"
-        app:layout_constraintTop_toBottomOf="@+id/noteTextLayout"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toStartOf="@id/cancelButton" />
-
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/cancelButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/cancel"
-        app:iconGravity="start"
-        app:layout_constraintTop_toTopOf="@id/saveButton"
-        app:layout_constraintBottom_toBottomOf="@id/saveButton"
-        app:layout_constraintStart_toEndOf="@id/saveButton"
-        app:layout_constraintEnd_toEndOf="parent" />
-</androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>

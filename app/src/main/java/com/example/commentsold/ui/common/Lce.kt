@@ -1,4 +1,4 @@
-package com.example.commentsold.ui.test
+package com.example.commentsold.ui.common
 
 sealed class Lce<T> {
     class Loading<T> : Lce<T>() {

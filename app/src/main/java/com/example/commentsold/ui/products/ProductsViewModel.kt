@@ -9,8 +9,8 @@ import androidx.paging.CombinedLoadStates
 import androidx.paging.LoadState
 import androidx.paging.cachedIn
 import com.example.commentsold.data.repository.Repository
-import com.example.commentsold.ui.test.BaseViewModel
-import com.example.commentsold.ui.test.*
+import com.example.commentsold.ui.common.BaseViewModel
+import com.example.commentsold.ui.common.*
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.collect
