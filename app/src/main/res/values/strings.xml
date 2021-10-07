@@ -1,6 +1,8 @@
 <resources>
     <string name="app_name">CommentSold</string>
     <!-- Strings related to login -->
+    <string name="save">Save</string>
+    <string name="cancel">Cancel</string>
     <string name="prompt_email">Email</string>
     <string name="prompt_password">Password</string>
     <string name="action_sign_in">Sign in</string>
