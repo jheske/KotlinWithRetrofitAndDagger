@@ -12,7 +12,9 @@ import com.example.commentsold.data.network.model.Product
 import com.example.commentsold.databinding.ListItemProductBinding
 import javax.inject.Inject
 
-class ProductRecyclerAdapter @Inject constructor():
+class ProductRecyclerAdapter @Inject constructor(
+    val onProductClicked: (Product) -> Unit
+):
     PagingDataAdapter<Product, ProductRecyclerAdapter.ProductViewHolder>(ProductComparator) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) =
@@ -23,7 +25,12 @@ class ProductRecyclerAdapter @Inject constructor():
         )
 
     override fun onBindViewHolder(holder: ProductViewHolder, position: Int) {
-        getItem(position)?.let { holder.bind(it) }
+        getItem(position)?.let { product ->
+            holder.bind(product)
+            holder.itemView.setOnClickListener {
+                onProductClicked(product)
+            }
+        }
     }
 
     inner class ProductViewHolder(private val binding: ListItemProductBinding) :

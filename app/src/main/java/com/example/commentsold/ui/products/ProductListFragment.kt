@@ -8,16 +8,10 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
-import androidx.paging.LoadState
-import androidx.recyclerview.widget.GridLayoutManager
-import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.commentsold.databinding.FragmentProductsBinding
 import com.example.commentsold.ui.test.Event
 import com.example.commentsold.ui.test.ListViewState
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.flow.collectLatest
-import kotlinx.coroutines.flow.distinctUntilChangedBy
-import kotlinx.coroutines.flow.filter
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
@@ -29,7 +23,7 @@ class ProductListFragment : Fragment() {
     private val viewModel by viewModels<ProductsViewModel>()
 
     private lateinit var binding: FragmentProductsBinding
-    val recyclerViewAdapter = ProductRecyclerAdapter()
+    lateinit var recyclerViewAdapter: ProductRecyclerAdapter
 
         override fun onCreateView(
         inflater: LayoutInflater,
@@ -42,7 +36,7 @@ class ProductListFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        setupBinding()
+        setupBindings()
         observeViewState()
         if (savedInstanceState == null) {
             lifecycleScope.launch {
@@ -51,18 +45,23 @@ class ProductListFragment : Fragment() {
         }
     }
 
-    private fun setupBinding() {
+    private fun setupBindings() {
         binding.productRecyclerView.apply {
-            layoutManager = GridLayoutManager(context,2)
             initAdapter()
+        }
+        binding.addProductFab.setOnClickListener {
+            Log.d("TAG","FAB!")
         }
     }
 
     private fun initAdapter() {
+        recyclerViewAdapter = ProductRecyclerAdapter {
+            //Navigate to
+        }
         binding.productRecyclerView.adapter = recyclerViewAdapter
 
         recyclerViewAdapter.addLoadStateListener {
-            Log.d(TAG, "loading state: ${it.toString()}")
+            Log.d(TAG, "loading state: $it")
             viewModel.onEvent(Event.LoadState(it))
         }
     }

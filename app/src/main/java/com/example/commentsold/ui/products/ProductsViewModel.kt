@@ -8,7 +8,6 @@ import androidx.lifecycle.viewModelScope
 import androidx.paging.CombinedLoadStates
 import androidx.paging.LoadState
 import androidx.paging.cachedIn
-import com.example.commentsold.data.network.ApiService
 import com.example.commentsold.data.repository.Repository
 import com.example.commentsold.ui.test.BaseViewModel
 import com.example.commentsold.ui.test.*

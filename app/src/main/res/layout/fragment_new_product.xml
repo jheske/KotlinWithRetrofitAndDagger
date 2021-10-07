@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/idTextLayout"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:hint="@string/product_id"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        android:layout_marginHorizontal="@dimen/material_large"
+        android:layout_marginTop="@dimen/material_large"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/idEditText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:lines="1"
+            android:singleLine="false"
+            android:text="@={viewModel.brand}"
+            android:gravity="top" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/brandTextLayout"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:hint="@string/brand"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        android:layout_marginHorizontal="@dimen/material_large"
+        android:layout_marginTop="@dimen/material_large"
+        app:layout_constraintTop_toBottomOf="@id/idTextLayout">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/brandEditText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:lines="1"
+            android:singleLine="false"
+            android:text="@={viewModel.brand}"
+            android:gravity="top" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/productNameTextLayout"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:hint="@string/product_name"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        android:layout_marginHorizontal="@dimen/material_large"
+        android:layout_marginTop="@dimen/material_large"
+        app:layout_constraintTop_toBottomOf="@id/brandTextLayout">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/productNameEditText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:lines="1"
+            android:singleLine="false"
+            android:text="@={viewModel.productName}"
+            android:gravity="top" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/productTypeTextLayout"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:hint="@string/product_type"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        android:layout_marginHorizontal="@dimen/material_large"
+        android:layout_marginTop="@dimen/material_large"
+        app:layout_constraintTop_toBottomOf="@id/productNameTextLayout">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/productTypeEditText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:lines="1"
+            android:singleLine="false"
+            android:text="@={viewModel.productType}"
+            android:gravity="top" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/styleTextLayout"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:hint="@string/style"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        android:layout_marginHorizontal="@dimen/material_large"
+        android:layout_marginTop="@dimen/material_large"
+        app:layout_constraintTop_toBottomOf="@id/productTypeTextLayout">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/styleEditText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:lines="1"
+            android:singleLine="false"
+            android:text="@={viewModel.style}"
+            android:gravity="top" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/descriptionTextLayout"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:hint="@string/description"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        android:layout_marginHorizontal="@dimen/material_large"
+        android:layout_marginTop="@dimen/material_large"
+        app:layout_constraintTop_toBottomOf="@id/styleTextLayout">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/descriptionEditText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:lines="1"
+            android:singleLine="false"
+            android:text="@={viewModel.productName}"
+            android:gravity="top" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/priceTextLayout"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:hint="@string/shipping_price"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        android:layout_marginHorizontal="@dimen/material_large"
+        android:layout_marginTop="@dimen/material_large"
+        app:layout_constraintTop_toBottomOf="@id/descriptionTextLayout">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/priceEditText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:lines="1"
+            android:singleLine="false"
+            android:text="@={viewModel.productName}"
+            android:gravity="top" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/noteTextLayout"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:hint="@string/note"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        android:layout_marginHorizontal="@dimen/material_large"
+        android:layout_marginTop="@dimen/material_large"
+        app:layout_constraintTop_toBottomOf="@id/priceTextLayout">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/noteEditText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:lines="1"
+            android:singleLine="false"
+            android:text="@={viewModel.productName}"
+            android:gravity="top" />
+    </com.google.android.material.textfield.TextInputLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>
