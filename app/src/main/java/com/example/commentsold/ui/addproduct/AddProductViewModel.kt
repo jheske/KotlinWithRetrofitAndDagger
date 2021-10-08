@@ -1,12 +1,9 @@
 package com.example.commentsold.ui.addproduct
 
 import android.util.Log
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
-import com.example.commentsold.R
+import androidx.lifecycle.*
 import com.example.commentsold.data.repository.Repository
+import com.example.commentsold.ui.common.FormLiveDataValidator
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
@@ -16,41 +13,95 @@ import javax.inject.Inject
 class AddProductViewModel @Inject constructor(
     private val repository: Repository
 ) : ViewModel() {
-    private val _addProductForm = MutableLiveData<AddProductFormState>()
-    val addProductFormState: LiveData<AddProductFormState> = _addProductForm
+    private val _productAddedSuccess = MutableLiveData<Boolean>()
+    val productAddedSuccess: LiveData<Boolean> = _productAddedSuccess
 
-    fun formDataChanged(
-        productName: String, description: String, style: String,
-        brand: String, price: String
-    ) {
-        if (!isProductNameValid(productName)) {
-            _addProductForm.value =
-                AddProductFormState(productIdError = R.string.invalid_product_id)
-        } else if (!isBrandValid(brand)) {
-            _addProductForm.value = AddProductFormState(brandError = R.string.invalid_brand)
-        } else if (!isStyleValid(style)) {
-            _addProductForm.value = AddProductFormState(styleError = R.string.invalid_style)
-        } else if (!isPriceValid(price)) {
-            _addProductForm.value = AddProductFormState(priceError = R.string.invalid_price)
-        } else if (!isDescriptionValid(description)) {
-            _addProductForm.value =
-                AddProductFormState(descriptionError = R.string.invalid_description)
-        } else {
-            _addProductForm.value = AddProductFormState(isDataValid = true)
+    // LiveData xml bindings
+    val productName = MutableLiveData<String>()
+    val description = MutableLiveData<String>()
+    val brand = MutableLiveData<String>()
+    val style = MutableLiveData<String>()
+    val price = MutableLiveData<String>()
+
+    /**
+     * Validators for LiveData fields.
+     * In a production app the rules would likely be more robust. For now, just
+     * require non-empty fields.
+     */
+    val productNameValidator = FormLiveDataValidator(productName).apply {
+        //Whenever the condition of the predicate is true, the error message should be emitted
+        addRule("Product Name is required") {
+            it.isNullOrBlank()
+        }
+    }
+    val descriptionValidator = FormLiveDataValidator(description).apply {
+        //Whenever the condition of the predicate is true, the error message should be emitted
+        addRule("Description is required") {
+            it.isNullOrBlank()
+        }
+    }
+    val brandValidator = FormLiveDataValidator(brand).apply {
+        //Whenever the condition of the predicate is true, the error message should be emitted
+        addRule("Brand is required") {
+            it.isNullOrBlank()
+        }
+    }
+    val styleValidator = FormLiveDataValidator(style).apply {
+        //Whenever the condition of the predicate is true, the error message should be emitted
+        addRule("Style is required") {
+            it.isNullOrBlank()
+        }
+    }
+    val priceValidator = FormLiveDataValidator(price).apply {
+        //Whenever the condition of the predicate is true, the error message should be emitted
+        addRule("Price is required") {
+            it.isNullOrBlank()
         }
     }
 
-    fun addProduct(
-        productName: String, description: String,
-        style: String, brand: String, price: String,
-    ) =
-        viewModelScope.launch {
-            repository.addProduct(productName, description, style, brand, price)
-                .collect {
-                    // TODO LiveData to fragment so it can return to Product List page
-                    Log.d("viewmodel", "Product created")
-                }
+    /// isAddProductFormValidMediator calls these whenever form field values change
+    fun validateForm() {
+        val validators = listOf(
+            productNameValidator,
+            descriptionValidator,
+            brandValidator,
+            styleValidator,
+            priceValidator
+        )
+        val validatorResolver = LiveDataValidatorResolver(validators)
+        isAddProductFormValid.value = validatorResolver.isValid()
+    }
+
+    /**
+     * isAddProductFormValid Mediator allows form to update the error state of form fields
+     * and the enabled state of the SAVE button as the form data changes.
+     */
+    val isAddProductFormValid = MediatorLiveData<Boolean>()
+
+    init {
+        isAddProductFormValid.value = false
+        isAddProductFormValid.apply {
+            addSource(productName) { validateForm() }
+            addSource(description) { validateForm() }
+            addSource(brand) { validateForm() }
+            addSource(style) { validateForm() }
+            addSource(price) { validateForm() }
         }
+    }
+
+    fun addProduct() = viewModelScope.launch {
+        // Field validation prevents empty fields.
+        repository.addProduct(
+            productName.value ?: "product name",
+            description.value ?: "Product description",
+            style.value ?: "style",
+            brand.value ?: "brand",
+            price.value ?: "0"
+        )
+            .collect {
+                _productAddedSuccess.value = true
+            }
+    }
 
     fun getStyles() =
         viewModelScope.launch {
@@ -59,30 +110,4 @@ class AddProductViewModel @Inject constructor(
                     Log.d("viewmodel", "Product created")
                 }
         }
-
-    /**
-     * Rudimentary form validation checks mostly for empty fields.
-     * Methods can be enhanced to include more rigorous validation,
-     * eg., check productType, brand, etc against lists of valid values.
-     */
-
-    private fun isProductNameValid(productName: String): Boolean {
-        return productName.isNotEmpty()
-    }
-
-    private fun isDescriptionValid(description: String): Boolean {
-        return description.isNotEmpty()
-    }
-
-    private fun isStyleValid(style: String): Boolean {
-        return style.isNotEmpty()
-    }
-
-    private fun isBrandValid(brand: String): Boolean {
-        return brand.isNotEmpty()
-    }
-
-    private fun isPriceValid(price: String): Boolean {
-        return price.isNotEmpty()
-    }
 }
