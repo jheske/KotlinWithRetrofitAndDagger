@@ -1,9 +1,6 @@
 package com.example.commentsold.data.network
 
-import com.example.commentsold.data.network.model.CreateProduct
-import com.example.commentsold.data.network.model.CreateProductResponse
-import com.example.commentsold.data.network.model.ProductsPage
-import com.example.commentsold.data.network.model.StatusResponse
+import com.example.commentsold.data.network.model.*
 import retrofit2.Response
 import retrofit2.http.*
 
@@ -21,10 +18,10 @@ interface ApiService {
     ): ProductsPage
 
     @GET("product")
-    suspend fun getProduct(): Response<StatusResponse>
+    suspend fun getProduct(): Response<Product>
 
     @GET("styles")
-    suspend fun getStyles(): Response<StatusResponse>
+    suspend fun getStyles(): Response<Styles>
 
     @POST("product")
     suspend fun addProduct(

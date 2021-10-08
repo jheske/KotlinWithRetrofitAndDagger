@@ -43,6 +43,16 @@ class Repository @Inject constructor(
         }.flowOn(Dispatchers.IO)
     }
 
+    suspend fun getStyles(): Flow<NetworkResult<Styles>> {
+        return flow {
+            emit(safeApiCall {
+                remoteDataSource.getStyles()
+            })
+        }.map { response ->
+            response
+        }.flowOn(Dispatchers.IO)
+    }
+
     suspend fun addProduct(
         productName: String, description: String,
         style: String, brand: String, price: String
@@ -74,5 +84,4 @@ class Repository @Inject constructor(
             pagingSourceFactory = { ProductsPagingDataSource(apiService) }
         ).flow
     }
-
 }

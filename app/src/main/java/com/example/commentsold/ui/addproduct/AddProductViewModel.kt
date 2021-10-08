@@ -47,6 +47,15 @@ class AddProductViewModel @Inject constructor(
         viewModelScope.launch {
             repository.addProduct(productName, description, style, brand, price)
                 .collect {
+                    // TODO LiveData to fragment so it can return to Product List page
+                    Log.d("viewmodel", "Product created")
+                }
+        }
+
+    fun getStyles() =
+        viewModelScope.launch {
+            repository.getStyles()
+                .collect {
                     Log.d("viewmodel", "Product created")
                 }
         }
