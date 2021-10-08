@@ -17,8 +17,8 @@ interface ApiService {
         @Query("limit") limit: Int = 10
     ): ProductsPage
 
-    @GET("product")
-    suspend fun getProduct(): Response<Product>
+    @GET("product/{id}")
+    suspend fun getProduct(@Path("id") productId: Int): Response<ProductResponse>
 
     @GET("styles")
     suspend fun getStyles(): Response<Styles>

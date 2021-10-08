@@ -57,7 +57,7 @@ class ProductListFragment : Fragment() {
 
     private fun initAdapter() {
         recyclerViewAdapter = ProductRecyclerAdapter {
-            //Navigate to
+            findNavController().navigate(ProductListFragmentDirections.actionProductListFragmentToProductDetailsFragment(it.id))
         }
         binding.productRecyclerView.adapter = recyclerViewAdapter
 

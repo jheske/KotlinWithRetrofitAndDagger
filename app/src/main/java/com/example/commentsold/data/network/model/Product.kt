@@ -13,4 +13,7 @@ data class Product(
     val style: String,
     val updated_at: String,
     val url: String
-)
+) {
+    fun shippingPriceString() = shipping_price.toString()
+    fun idString() = id.toString()
+}

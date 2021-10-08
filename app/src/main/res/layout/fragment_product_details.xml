@@ -1,0 +1,260 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <variable
+            name="viewModel"
+            type="com.example.commentsold.ui.productdetails.ProductDetailsViewModel"/>
+    </data>
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/material_large">
+
+            <ImageView
+                android:id="@+id/productImageView"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:contentDescription="@string/product_name"
+                android:src="@drawable/airedale_tshirt"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <!-- Product name-->
+            <TextView
+                android:id="@+id/productNameLabelTextView"
+                style="@style/ProductDetailTextLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
+                android:text="@string/product_name"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/productImageView" />
+
+            <TextView
+                android:id="@+id/productNameTextView"
+                style="@style/ProductDetailText"
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
+                android:text="@{viewModel.product.product_name}"
+                app:layout_constraintBottom_toBottomOf="@id/productNameLabelTextView"
+                app:layout_constraintStart_toEndOf="@id/productNameLabelTextView"
+                app:layout_constraintTop_toTopOf="@id/productNameLabelTextView"
+                tools:text="1234" />
+
+            <!-- Product id-->
+            <TextView
+                android:id="@+id/productIdLabelTextView"
+                style="@style/ProductDetailTextLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
+                android:text="@string/product_id"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/productNameLabelTextView" />
+
+            <TextView
+                android:id="@+id/productIdTextView"
+                style="@style/ProductDetailText"
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
+                android:text="@{viewModel.product.idString()}"
+                app:layout_constraintBottom_toBottomOf="@id/productIdLabelTextView"
+                app:layout_constraintStart_toEndOf="@id/productIdLabelTextView"
+                app:layout_constraintTop_toTopOf="@id/productIdLabelTextView"
+                tools:text="1234" />
+
+            <!-- description -->
+            <TextView
+                android:id="@+id/productDescriptionLabelTextView"
+                style="@style/ProductDetailTextLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
+                android:text="@string/description"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/productIdLabelTextView" />
+
+            <TextView
+                android:id="@+id/productDescriptionTextView"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_marginTop="@dimen/material_small"
+                android:lines="4"
+                android:text="@{viewModel.product.description}"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/productDescriptionLabelTextView"
+                tools:text="1234" />
+
+            <!-- style -->
+            <TextView
+                android:id="@+id/styleLabelTextView"
+                style="@style/ProductDetailTextLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
+                android:text="@string/style"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/productDescriptionTextView" />
+
+            <TextView
+                android:id="@+id/styleTextView"
+                style="@style/ProductDetailText"
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
+                android:text="@{viewModel.product.style}"
+                app:layout_constraintBottom_toBottomOf="@id/styleLabelTextView"
+                app:layout_constraintStart_toEndOf="@id/styleLabelTextView"
+                app:layout_constraintTop_toTopOf="@id/styleLabelTextView"
+                tools:text="style" />
+
+            <!-- brand -->
+            <TextView
+                android:id="@+id/brandLabelTextView"
+                style="@style/ProductDetailTextLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
+                android:text="@string/brand"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/styleLabelTextView" />
+
+            <TextView
+                android:id="@+id/brandTextView"
+                style="@style/ProductDetailText"
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
+                android:text="@{viewModel.product.brand}"
+                app:layout_constraintBottom_toBottomOf="@id/brandLabelTextView"
+                app:layout_constraintStart_toEndOf="@id/brandLabelTextView"
+                app:layout_constraintTop_toTopOf="@id/brandLabelTextView"
+                tools:text="brand" />
+
+            <!-- created_at -->
+            <TextView
+                android:id="@+id/createdLabelTextView"
+                style="@style/ProductDetailTextLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
+                android:text="@string/created_at"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/brandLabelTextView" />
+
+            <TextView
+                android:id="@+id/createdTextView"
+                style="@style/ProductDetailText"
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
+                android:text="@{viewModel.product.created_at}"
+                app:layout_constraintBottom_toBottomOf="@id/createdLabelTextView"
+                app:layout_constraintStart_toEndOf="@id/createdLabelTextView"
+                app:layout_constraintTop_toTopOf="@id/createdLabelTextView"
+                tools:text="created at" />
+
+            <!-- updated_at -->
+            <TextView
+                android:id="@+id/updatedLabelTextView"
+                style="@style/ProductDetailTextLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
+                android:text="@string/updated_at"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/createdLabelTextView" />
+
+            <TextView
+                android:id="@+id/updatedTextView"
+                style="@style/ProductDetailText"
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
+                android:text="@{viewModel.product.updated_at}"
+                app:layout_constraintBottom_toBottomOf="@id/updatedLabelTextView"
+                app:layout_constraintStart_toEndOf="@id/updatedLabelTextView"
+                app:layout_constraintTop_toTopOf="@id/updatedLabelTextView"
+                tools:text="updated at" />
+
+            <!-- url -->
+            <TextView
+                android:id="@+id/urlLabelTextView"
+                style="@style/ProductDetailTextLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
+                android:text="@string/url"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/updatedLabelTextView" />
+
+            <TextView
+                android:id="@+id/urlTextView"
+                style="@style/ProductDetailText"
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
+                android:text="@{viewModel.product.url}"
+                app:layout_constraintBottom_toBottomOf="@id/urlLabelTextView"
+                app:layout_constraintStart_toEndOf="@id/urlLabelTextView"
+                app:layout_constraintTop_toTopOf="@id/urlLabelTextView"
+                tools:text="url" />
+
+            <!-- product type -->
+            <TextView
+                android:id="@+id/productTypeLabelTextView"
+                style="@style/ProductDetailTextLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
+                android:text="@string/product_type"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/urlLabelTextView" />
+
+            <TextView
+                android:id="@+id/productTypeTextView"
+                style="@style/ProductDetailText"
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
+                android:text="@{viewModel.product.product_type}"
+                app:layout_constraintBottom_toBottomOf="@id/productTypeLabelTextView"
+                app:layout_constraintStart_toEndOf="@id/productTypeLabelTextView"
+                app:layout_constraintTop_toTopOf="@id/productTypeLabelTextView"
+                tools:text="product type" />
+
+            <!-- shipping price-->
+            <TextView
+                android:id="@+id/priceLabelTextView"
+                style="@style/ProductDetailTextLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
+                android:text="@string/price"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/productTypeLabelTextView" />
+
+            <TextView
+                android:id="@+id/priceTextView"
+                style="@style/ProductDetailText"
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
+                android:text="@{viewModel.product.shippingPriceString()}"
+                app:layout_constraintBottom_toBottomOf="@id/priceLabelTextView"
+                app:layout_constraintStart_toEndOf="@id/priceLabelTextView"
+                app:layout_constraintTop_toTopOf="@id/priceLabelTextView"
+                tools:text="Shipping price" />
+
+            <!-- note -->
+            <TextView
+                android:id="@+id/noteLabelTextView"
+                style="@style/ProductDetailTextLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
+                android:text="@string/note"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/priceLabelTextView" />
+
+            <TextView
+                android:id="@+id/noteTextView"
+                style="@style/ProductDetailText"
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
+                android:text="@{viewModel.product.note}"
+                app:layout_constraintBottom_toBottomOf="@id/noteLabelTextView"
+                app:layout_constraintStart_toEndOf="@id/noteLabelTextView"
+                app:layout_constraintTop_toTopOf="@id/noteLabelTextView"
+                tools:text="note" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </ScrollView>
+</layout>

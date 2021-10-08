@@ -43,6 +43,17 @@ class Repository @Inject constructor(
         }.flowOn(Dispatchers.IO)
     }
 
+    suspend fun getProduct(productId: Int): Flow<NetworkResult<ProductResponse>> {
+        return flow {
+            emit(safeApiCall {
+                remoteDataSource.getProduct(productId)
+            })
+        }.map { response ->
+            Log.d("Repo",response.data?.product?.product_name ?: "empty product name")
+            response
+        }.flowOn(Dispatchers.IO)
+    }
+
     suspend fun getStyles(): Flow<NetworkResult<Styles>> {
         return flow {
             emit(safeApiCall {
