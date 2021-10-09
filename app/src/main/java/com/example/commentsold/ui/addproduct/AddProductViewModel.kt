@@ -15,7 +15,9 @@ class AddProductViewModel @Inject constructor(
 ) : ViewModel() {
     private val _productAddedSuccess = MutableLiveData<Boolean>()
     val productAddedSuccess: LiveData<Boolean> = _productAddedSuccess
-    val showExtraProductFields = MutableLiveData(false)
+
+    val _stylesList = MutableLiveData<List<String>>()
+    val stylesList: LiveData<List<String>> = _stylesList
 
     val productName = MutableLiveData<String>()
     val description = MutableLiveData<String>()
@@ -132,7 +134,6 @@ class AddProductViewModel @Inject constructor(
                         price.value = data.product.shippingPriceString()
                         productId = data.product.id
                     }
-                    showExtraProductFields.value = true
                 }
         }
 
@@ -140,7 +141,7 @@ class AddProductViewModel @Inject constructor(
         viewModelScope.launch {
             repository.getStyles()
                 .collect {
-                    Log.d("viewmodel", "Product created")
+                    _stylesList.value = it.data?.styles ?: listOf()
                 }
         }
 }

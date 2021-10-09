@@ -111,7 +111,7 @@ class Repository @Inject constructor(
     suspend fun deleteProduct(productId: Int): Flow<NetworkResult<UpdateProductResponse>> {
         return flow {
             emit(safeApiCall {
-                remoteDataSource.deleteProduct(productId=9999)
+                remoteDataSource.deleteProduct(productId)
             })
         }.map { response ->
             response

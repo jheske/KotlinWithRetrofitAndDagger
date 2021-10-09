@@ -29,6 +29,7 @@
     <string name="edit">Edit product</string>
     <string name="delete_product">Delete Error</string>
     <string name="error_deleting_product">Error deleting product id %d</string>
+    <string name="alphanumeric">ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz1234567890</string>
 
     <string name="invalid_product_id">Product ID cannot be empty</string>
     <string name="invalid_product_name">Product name cannot be empty</string>

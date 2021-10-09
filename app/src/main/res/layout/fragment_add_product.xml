@@ -65,26 +65,55 @@
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
                 android:id="@+id/styleTextLayout"
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
-                android:layout_marginHorizontal="@dimen/material_large"
-                android:layout_marginTop="@dimen/material_large"
-                android:hint="@string/style"
-                app:error="@{viewModel.styleValidator.error}"
-                app:layout_constraintTop_toBottomOf="@id/descriptionTextLayout">
+                android:layout_margin="@dimen/material_large"
+                android:hint="Select a style"
+                app:expandedHintEnabled="true"
+                app:endIconMode="dropdown_menu"
+                app:layout_constraintTop_toBottomOf="@id/descriptionTextLayout"
+                app:layout_constraintStart_toStartOf="parent">
 
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/styleEditText"
+                <AutoCompleteTextView
+                    android:id="@+id/styleTextView"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:gravity="top"
-                    android:lines="1"
-                    android:singleLine="false"
                     android:text="@={viewModel.style}"
-                    tools:text="My Product's Style" />
+                    android:inputType="textAutoComplete"
+                    android:singleLine="true"
+                    android:ellipsize="end"
+                    android:paddingTop="4dp"
+                    android:paddingBottom="@dimen/material_small"
+                    android:paddingStart="@dimen/material_large"
+                    android:paddingEnd="@dimen/material_large"
+                    android:ems="75"
+                    android:completionThreshold="1"
+                    android:digits="@string/alphanumeric" />
             </com.google.android.material.textfield.TextInputLayout>
+
+<!--            <com.google.android.material.textfield.TextInputLayout-->
+<!--                android:id="@+id/styleTextLayout"-->
+<!--                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="0dp"-->
+<!--                android:layout_marginHorizontal="@dimen/material_large"-->
+<!--                android:layout_marginTop="@dimen/material_large"-->
+<!--                android:hint="@string/style"-->
+<!--                app:error="@{viewModel.styleValidator.error}"-->
+<!--                app:layout_constraintTop_toBottomOf="@id/descriptionTextLayout">-->
+
+<!--                <com.google.android.material.textfield.TextInputEditText-->
+<!--                    android:id="@+id/styleEditText"-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:gravity="top"-->
+<!--                    android:lines="1"-->
+<!--                    android:singleLine="false"-->
+<!--                    android:text="@={viewModel.style}"-->
+<!--                    tools:text="My Product's Style" />-->
+<!--            </com.google.android.material.textfield.TextInputLayout>-->
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/brandTextLayout"
