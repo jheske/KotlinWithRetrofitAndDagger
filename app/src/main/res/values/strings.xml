@@ -1,6 +1,7 @@
 <resources>
     <string name="app_name">CommentSold</string>
     <!-- Strings related to login -->
+    <string name="ok">OK</string>
     <string name="save">Save</string>
     <string name="cancel">Cancel</string>
     <string name="prompt_email">Email</string>
@@ -26,6 +27,8 @@
     <string name="created_at">Created at</string>
     <string name="updated_at">Updated at</string>
     <string name="edit">Edit product</string>
+    <string name="delete_product">Delete Error</string>
+    <string name="error_deleting_product">Error deleting product id %d</string>
 
     <string name="invalid_product_id">Product ID cannot be empty</string>
     <string name="invalid_product_name">Product name cannot be empty</string>

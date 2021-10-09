@@ -15,13 +15,14 @@ class AddProductViewModel @Inject constructor(
 ) : ViewModel() {
     private val _productAddedSuccess = MutableLiveData<Boolean>()
     val productAddedSuccess: LiveData<Boolean> = _productAddedSuccess
+    val showExtraProductFields = MutableLiveData(false)
 
-    // LiveData xml bindings
     val productName = MutableLiveData<String>()
     val description = MutableLiveData<String>()
     val brand = MutableLiveData<String>()
     val style = MutableLiveData<String>()
     val price = MutableLiveData<String>()
+    var productId: Int? = null
 
     /**
      * Validators for LiveData fields.
@@ -102,6 +103,38 @@ class AddProductViewModel @Inject constructor(
                 _productAddedSuccess.value = true
             }
     }
+
+    fun updateProduct() = viewModelScope.launch {
+        // Field validation prevents empty fields.
+        repository.updateProduct(
+            productId ?: 0,
+            productName.value ?: "product name",
+            description.value ?: "Product description",
+            style.value ?: "style",
+            brand.value ?: "brand",
+            price.value ?: "0",
+            productId ?: 0
+        )
+            .collect {
+                _productAddedSuccess.value = true
+            }
+    }
+
+    fun getProduct(id: Int) =
+        viewModelScope.launch {
+            repository.getProduct(id)
+                .collect {
+                    it.data?.let { data ->
+                        productName.value = data.product.product_name
+                        description.value = data.product.description
+                        brand.value = data.product.brand
+                        style.value = data.product.style
+                        price.value = data.product.shippingPriceString()
+                        productId = data.product.id
+                    }
+                    showExtraProductFields.value = true
+                }
+        }
 
     fun getStyles() =
         viewModelScope.launch {

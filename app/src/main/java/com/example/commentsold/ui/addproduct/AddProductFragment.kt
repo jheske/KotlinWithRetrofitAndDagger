@@ -9,6 +9,8 @@ import androidx.fragment.app.viewModels
 import com.example.commentsold.databinding.FragmentAddProductBinding
 import dagger.hilt.android.AndroidEntryPoint
 import androidx.lifecycle.Observer
+import androidx.navigation.fragment.navArgs
+import com.example.commentsold.ui.productdetails.ProductDetailsFragmentArgs
 
 @AndroidEntryPoint
 class AddProductFragment : Fragment() {
@@ -17,8 +19,9 @@ class AddProductFragment : Fragment() {
     }
 
     private val viewModel by viewModels<AddProductViewModel>()
+    private val args: AddProductFragmentArgs by navArgs()
 
-     private lateinit var binding: FragmentAddProductBinding
+    private lateinit var binding: FragmentAddProductBinding
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -33,6 +36,14 @@ class AddProductFragment : Fragment() {
         return binding.root
     }
 
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        args.product?.let {
+            viewModel.getProduct(it.id)
+        }
+    }
+
     private fun setupObservers() {
         viewModel.productAddedSuccess.observe(viewLifecycleOwner, Observer {
             requireActivity().onBackPressed()
@@ -41,7 +52,11 @@ class AddProductFragment : Fragment() {
 
     private fun setupClickListeners() {
         binding.saveButton.setOnClickListener {
-            viewModel.addProduct()
+            args.product?.let {
+                viewModel.addProduct()
+            } ?: run {
+                viewModel.updateProduct()
+            }
         }
         binding.cancelButton.setOnClickListener {
             requireActivity().onBackPressed()

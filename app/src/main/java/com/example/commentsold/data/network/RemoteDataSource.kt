@@ -23,4 +23,12 @@ class RemoteDataSource @Inject constructor(private val apiService: ApiService) {
         product: CreateProduct
     ) = apiService.addProduct(product)
 
+    suspend fun updateProduct(
+        productId: Int,
+        product: CreateProduct
+    ) = apiService.updateProduct(productId, product)
+
+    suspend fun deleteProduct(
+        productId: Int,
+    ) = apiService.deleteProduct(productId)
 }

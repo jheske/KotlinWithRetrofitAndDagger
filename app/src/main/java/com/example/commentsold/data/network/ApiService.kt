@@ -18,13 +18,31 @@ interface ApiService {
     ): ProductsPage
 
     @GET("product/{id}")
-    suspend fun getProduct(@Path("id") productId: Int): Response<ProductResponse>
+    suspend fun getProduct(
+        @Path("id") productId: Int
+    ): Response<ProductResponse>
 
     @GET("styles")
     suspend fun getStyles(): Response<Styles>
 
     @POST("product")
     suspend fun addProduct(
-       @Body product: CreateProduct
+        @Body product: CreateProduct
     ): Response<CreateProductResponse>
+
+    @DELETE("product/{id}")
+    suspend fun deleteProduct(
+        @Path("id") productId: Int
+    ): Response<UpdateProductResponse>
+
+//    @DELETE("product/{id}")
+//    suspend fun deleteProduct(
+//        @Path("id") productId: Int
+//    ): Response<UpdateProductResponse>
+
+    @PUT("product/{id}")
+    suspend fun updateProduct(
+        @Path("id") productId: Int,
+        @Body product: CreateProduct
+    ): Response<UpdateProductResponse>
 }

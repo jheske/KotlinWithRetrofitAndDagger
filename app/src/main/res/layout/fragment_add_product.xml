@@ -5,6 +5,8 @@
 
     <data>
 
+        <import type="android.view.View"/>
+
         <variable
             name="viewModel"
             type="com.example.commentsold.ui.addproduct.AddProductViewModel" />
@@ -55,10 +57,10 @@
                     android:id="@+id/descriptionEditText"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="@={viewModel.description}"
                     android:gravity="top"
                     android:lines="3"
                     android:singleLine="false"
+                    android:text="@={viewModel.description}"
                     tools:text="Description of my new product" />
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -77,10 +79,10 @@
                     android:id="@+id/styleEditText"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="@={viewModel.style}"
                     android:gravity="top"
                     android:lines="1"
                     android:singleLine="false"
+                    android:text="@={viewModel.style}"
                     tools:text="My Product's Style" />
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -99,10 +101,10 @@
                     android:id="@+id/brandEditText"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="@={viewModel.brand}"
                     android:gravity="top"
                     android:lines="1"
                     android:singleLine="false"
+                    android:text="@={viewModel.brand}"
                     tools:text="My favorite brand" />
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -121,11 +123,11 @@
                     android:id="@+id/priceEditText"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="@={viewModel.price}"
                     android:gravity="top"
                     android:inputType="numberDecimal"
                     android:lines="1"
                     android:singleLine="false"
+                    android:text="@={viewModel.price}"
                     tools:text="240" />
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -154,7 +156,6 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@id/saveButton"
                 app:layout_constraintTop_toTopOf="@id/saveButton" />
-
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>
 </layout>

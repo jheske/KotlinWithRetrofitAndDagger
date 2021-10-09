@@ -22,7 +22,12 @@
         android:id="@+id/addProductFragment"
         android:name="com.example.commentsold.ui.addproduct.AddProductFragment"
         android:label="AddProductFragment"
-        tools:layout="@layout/fragment_add_product"/>
+        tools:layout="@layout/fragment_add_product">
+        <argument
+            android:name="product"
+            app:argType="com.example.commentsold.data.network.model.Product"
+            app:nullable="true" />
+    </fragment>
     <fragment
         android:id="@+id/productDetailsFragment"
         android:name="com.example.commentsold.ui.productdetails.ProductDetailsFragment"

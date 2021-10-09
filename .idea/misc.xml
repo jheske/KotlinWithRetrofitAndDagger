@@ -10,7 +10,7 @@
         <entry key="app/src/main/res/layout/fragment_product_details.xml" value="0.30520833333333336" />
         <entry key="app/src/main/res/layout/fragment_products.xml" value="0.24947916666666667" />
         <entry key="app/src/main/res/layout/fragment_products_page.xml" value="0.32916666666666666" />
-        <entry key="app/src/main/res/layout/list_item_product.xml" value="0.43919388464211256" />
+        <entry key="app/src/main/res/layout/list_item_product.xml" value="0.5" />
       </map>
     </option>
   </component>

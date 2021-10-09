@@ -1,22 +1,46 @@
 package com.example.commentsold.di
 
+import android.accounts.NetworkErrorException
+import android.content.Context
+import android.content.Intent
+import android.util.Log
+import androidx.core.content.ContextCompat
+import com.example.commentsold.CommentSoldApplication
 import com.example.commentsold.data.network.ApiService
 import com.example.commentsold.utils.Constants.Companion.BASE_URL
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
+import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
+import okhttp3.Request
+import okhttp3.Response
 import okhttp3.logging.HttpLoggingInterceptor
+import okio.IOException
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import java.util.concurrent.TimeUnit
+import javax.inject.Inject
 import javax.inject.Singleton
 
 @Module
 @InstallIn(SingletonComponent::class)
 object NetworkModule {
+
+    @Singleton
+    @Provides
+    fun provideApplication(@ApplicationContext app: Context): CommentSoldApplication {
+        return app as CommentSoldApplication
+    }
+
+    @Provides
+    @Singleton
+    fun provideContext(application: CommentSoldApplication): Context {
+        return application.applicationContext
+    }
+
     @Singleton
     @Provides
     fun provideNetworkInterceptor(
@@ -33,7 +57,15 @@ object NetworkModule {
             }
 
             val request = builder.build()
-            chain.proceed(request)
+            val response = chain.proceed(request)
+            when (response.code) {
+                // TODO this is NOT the correct way to do this. This should throw an
+                // exception and propagate an ErrorResponse back to the ViewModel. I
+                // ran out of time to research the solution.
+                500 -> {
+                }
+            }
+            response
         }
     }
 

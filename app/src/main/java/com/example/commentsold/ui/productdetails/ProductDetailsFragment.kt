@@ -6,9 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import com.example.commentsold.databinding.FragmentAddProductBinding
 import dagger.hilt.android.AndroidEntryPoint
-import androidx.lifecycle.Observer
 import androidx.navigation.fragment.navArgs
 import com.example.commentsold.databinding.FragmentProductDetailsBinding
 
@@ -38,9 +36,5 @@ class ProductDetailsFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         viewModel.getProduct(args.productId)
-
-        viewModel.productLiveData.observe(viewLifecycleOwner, {
-            binding.productNameTextView.text = it.product_name
-        })
     }
 }

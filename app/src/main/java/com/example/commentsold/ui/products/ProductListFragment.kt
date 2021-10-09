@@ -1,5 +1,6 @@
 package com.example.commentsold.ui.products
 
+import android.app.AlertDialog
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -9,6 +10,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
+import com.example.commentsold.R
 import com.example.commentsold.databinding.FragmentProductsBinding
 import com.example.commentsold.ui.common.Event
 import com.example.commentsold.ui.common.ListViewState
@@ -21,7 +23,7 @@ class ProductListFragment : Fragment() {
         const val TAG = "ProductListFragment"
     }
 
-    private val viewModel by viewModels<ProductsViewModel>()
+    private val viewModel by viewModels<ProductListViewModel>()
 
     private lateinit var binding: FragmentProductsBinding
     lateinit var recyclerViewAdapter: ProductRecyclerAdapter
@@ -38,7 +40,7 @@ class ProductListFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setupBindings()
-        observeViewState()
+        setupObservers()
         if (savedInstanceState == null) {
             lifecycleScope.launch {
                 viewModel.onSuspendedEvent(Event.ScreenLoad)
@@ -51,14 +53,30 @@ class ProductListFragment : Fragment() {
             initAdapter()
         }
         binding.addProductFab.setOnClickListener {
-            findNavController().navigate(ProductListFragmentDirections.actionProductListFragmentToAddProductFragment())
+            findNavController().navigate(
+                ProductListFragmentDirections.actionProductListFragmentToAddProductFragment(
+                    null
+                )
+            )
         }
     }
 
     private fun initAdapter() {
-        recyclerViewAdapter = ProductRecyclerAdapter {
-            findNavController().navigate(ProductListFragmentDirections.actionProductListFragmentToProductDetailsFragment(it.id))
-        }
+        recyclerViewAdapter = ProductRecyclerAdapter({
+            findNavController().navigate(
+                ProductListFragmentDirections.actionProductListFragmentToProductDetailsFragment(
+                    it.id
+                )
+            )
+        }, {
+            findNavController().navigate(
+                ProductListFragmentDirections.actionProductListFragmentToAddProductFragment(
+                    it
+                )
+            )
+        }, {
+            viewModel.deleteProduct(it.id)
+        })
         binding.productRecyclerView.adapter = recyclerViewAdapter
 
         recyclerViewAdapter.addLoadStateListener {
@@ -67,27 +85,22 @@ class ProductListFragment : Fragment() {
         }
     }
 
-    private fun observeViewState() {
+    private fun setupObservers() {
         viewModel.obtainState.observe(viewLifecycleOwner, {
             Log.d(TAG, "observeViewState obtainState result: ${it.adapterList.size}")
             render(it)
         })
+        viewModel.deleteError.observe (viewLifecycleOwner, {
+            val message = String.format(getString(R.string.error_deleting_product),it)
+            AlertDialog.Builder(requireActivity())
+                .setTitle(R.string.delete_product)
+                .setMessage(message)
+                .setPositiveButton(R.string.ok, null)
+                .show()
+        })
     }
 
-//    private fun setScrollToTopWHenRefreshedFromNetwork() {
-//        // Scroll to top when the list is refreshed from network.
-//        lifecycleScope.launch {
-//            recyclerViewAdapter.loadStateFlow
-//                // Only emit when REFRESH LoadState for RemoteMediator changes.
-//                .distinctUntilChangedBy { it.refresh }
-//                // Only react to cases where Remote REFRESH completes i.e., NotLoading.
-//                .filter { it.refresh is LoadState.NotLoading }
-//                .collect { binding.productRecyclerView.scrollToPosition(0) }
-//        }
-//    }
-
     private fun render(state: ListViewState) {
-        //state.loadingStateVisibility?.let { binding.progressBar.visibility = it }
         lifecycleScope.launch {
             state.page?.let { recyclerViewAdapter.submitData(it) }
         }

@@ -13,8 +13,10 @@ import com.example.commentsold.databinding.ListItemProductBinding
 import javax.inject.Inject
 
 class ProductRecyclerAdapter @Inject constructor(
-    val onProductClicked: (Product) -> Unit
-):
+    val onProductClicked: (Product) -> Unit,
+    val onEditProductClicked: (Product) -> Unit,
+    val onDeleteProductClicked: (Product) -> Unit
+) :
     PagingDataAdapter<Product, ProductRecyclerAdapter.ProductViewHolder>(ProductComparator) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) =
@@ -33,13 +35,21 @@ class ProductRecyclerAdapter @Inject constructor(
         }
     }
 
-    inner class ProductViewHolder(private val binding: ListItemProductBinding) :
+    inner class ProductViewHolder(
+        private val binding: ListItemProductBinding
+    ) :
         RecyclerView.ViewHolder(binding.root) {
 
         fun bind(item: Product) = with(binding) {
             binding.nameTextView.text = item.product_name
             val price = "$${item.shipping_price}"
             binding.priceTextView.text = price
+            binding.editButtonHitArea.setOnClickListener {
+                onEditProductClicked(item)
+            }
+            binding.deleteButtonHitArea.setOnClickListener {
+                onDeleteProductClicked(item)
+            }
         }
     }
 

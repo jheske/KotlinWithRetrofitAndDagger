@@ -85,6 +85,39 @@ class Repository @Inject constructor(
         }.flowOn(Dispatchers.IO)
     }
 
+    suspend fun updateProduct(
+        productId: Int, productName: String, description: String,
+        style: String, brand: String, price: String,url: Int
+    ): Flow<NetworkResult<UpdateProductResponse>> {
+        return flow {
+            emit(safeApiCall {
+                remoteDataSource.updateProduct(
+                    productId,
+                    CreateProduct(
+                        productName,
+                        description,
+                        style,
+                        brand,
+                        price.toInt(),
+                        url
+                    )
+                )
+            })
+        }.map { response ->
+            response
+        }.flowOn(Dispatchers.IO)
+    }
+
+    suspend fun deleteProduct(productId: Int): Flow<NetworkResult<UpdateProductResponse>> {
+        return flow {
+            emit(safeApiCall {
+                remoteDataSource.deleteProduct(productId=9999)
+            })
+        }.map { response ->
+            response
+        }.flowOn(Dispatchers.IO)
+    }
+
     fun getProducts(): Flow<PagingData<Product>> {
         Log.d("Repository", "New page")
         return Pager(

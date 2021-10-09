@@ -15,7 +15,6 @@ class ProductDetailsViewModel @Inject constructor(
     private val repository: Repository
 ) : ViewModel() {
      val product = MutableLiveData<Product>()
-     val productLiveData: LiveData<Product> = product
 
      fun getProduct(productId: Int) =
         viewModelScope.launch {
