@@ -1,6 +1,5 @@
 package com.example.commentsold.ui.products
 
-import android.util.Log
 import androidx.paging.PagingSource
 import androidx.paging.PagingState
 import com.example.commentsold.data.network.ApiService

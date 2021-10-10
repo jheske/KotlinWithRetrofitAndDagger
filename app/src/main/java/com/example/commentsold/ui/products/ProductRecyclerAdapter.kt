@@ -10,10 +10,8 @@ import android.view.ViewGroup
 import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
 import com.bumptech.glide.Glide
-import com.example.commentsold.R
 import com.example.commentsold.data.network.model.Product
 import com.example.commentsold.databinding.ListItemProductBinding
-import com.example.commentsold.utils.Constants
 import javax.inject.Inject
 
 class ProductRecyclerAdapter @Inject constructor(

@@ -1,13 +1,9 @@
 package com.example.commentsold.ui.productdetails
 
-import android.util.Log
 import androidx.lifecycle.*
 import com.example.commentsold.data.network.model.Product
 import com.example.commentsold.data.repository.Repository
-import com.example.commentsold.ui.common.FormLiveDataValidator
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.flow.collect
-import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel

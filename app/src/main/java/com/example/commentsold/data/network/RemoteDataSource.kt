@@ -1,8 +1,6 @@
 package com.example.commentsold.data.network
 
-import android.util.Log
 import com.example.commentsold.data.network.model.CreateProduct
-import com.example.commentsold.data.network.model.Product
 import com.example.commentsold.data.network.model.ProductResponse
 import com.example.commentsold.utils.encode
 import retrofit2.Response

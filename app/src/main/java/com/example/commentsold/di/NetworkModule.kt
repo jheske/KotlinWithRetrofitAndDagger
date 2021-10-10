@@ -1,10 +1,6 @@
 package com.example.commentsold.di
 
-import android.accounts.NetworkErrorException
 import android.content.Context
-import android.content.Intent
-import android.util.Log
-import androidx.core.content.ContextCompat
 import com.example.commentsold.CommentSoldApplication
 import com.example.commentsold.data.network.ApiService
 import com.example.commentsold.utils.Constants.Companion.BASE_URL
@@ -15,14 +11,10 @@ import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
-import okhttp3.Request
-import okhttp3.Response
 import okhttp3.logging.HttpLoggingInterceptor
-import okio.IOException
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import java.util.concurrent.TimeUnit
-import javax.inject.Inject
 import javax.inject.Singleton
 
 @Module

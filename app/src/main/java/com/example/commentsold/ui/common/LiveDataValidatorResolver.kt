@@ -1,6 +1,4 @@
-package com.example.commentsold.ui.addproduct
-
-import com.example.commentsold.ui.common.FormLiveDataValidator
+package com.example.commentsold.ui.common
 
 class LiveDataValidatorResolver(private val validators: List<FormLiveDataValidator>) {
     fun isValid(): Boolean {

@@ -9,7 +9,6 @@ import androidx.fragment.app.viewModels
 import dagger.hilt.android.AndroidEntryPoint
 import androidx.navigation.fragment.navArgs
 import com.bumptech.glide.Glide
-import com.example.commentsold.R
 import com.example.commentsold.databinding.FragmentProductDetailsBinding
 import com.example.commentsold.ui.products.ProductsActivity
 
