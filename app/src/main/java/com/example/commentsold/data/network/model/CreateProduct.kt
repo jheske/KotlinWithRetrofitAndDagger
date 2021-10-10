@@ -5,6 +5,6 @@ data class CreateProduct(
     val description: String,
     val style: String,
     val brand: String,
-    val shipping_price_cents: Int,
+    val shipping_price: Int,
     val url: Int?=null,
 )

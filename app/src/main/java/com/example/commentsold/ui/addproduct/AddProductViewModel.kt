@@ -13,8 +13,8 @@ import javax.inject.Inject
 class AddProductViewModel @Inject constructor(
     private val repository: Repository
 ) : ViewModel() {
-    private val _productAddedSuccess = MutableLiveData<Boolean>()
-    val productAddedSuccess: LiveData<Boolean> = _productAddedSuccess
+    private val _productAddOrUpdate = MutableLiveData<Boolean>()
+    val productAddOrUpdate: LiveData<Boolean> = _productAddOrUpdate
 
     val _stylesList = MutableLiveData<List<String>>()
     val stylesList: LiveData<List<String>> = _stylesList
@@ -100,10 +100,9 @@ class AddProductViewModel @Inject constructor(
             style.value ?: "style",
             brand.value ?: "brand",
             price.value ?: "0"
-        )
-            .collect {
-                _productAddedSuccess.value = true
-            }
+        ).collect {
+            _productAddOrUpdate.value = true
+        }
     }
 
     fun updateProduct() = viewModelScope.launch {
@@ -116,10 +115,9 @@ class AddProductViewModel @Inject constructor(
             brand.value ?: "brand",
             price.value ?: "0",
             productId ?: 0
-        )
-            .collect {
-                _productAddedSuccess.value = true
-            }
+        ).collect {
+            _productAddOrUpdate.value = true
+        }
     }
 
     fun getProduct(id: Int) =
@@ -130,8 +128,8 @@ class AddProductViewModel @Inject constructor(
                         productName.value = data.product.product_name
                         description.value = data.product.description
                         brand.value = data.product.brand
-                        style.value = data.product.style
                         price.value = data.product.shippingPriceString()
+                        style.value = data.product.style
                         productId = data.product.id
                     }
                 }

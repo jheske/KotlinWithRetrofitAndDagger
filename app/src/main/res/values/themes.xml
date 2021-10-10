@@ -24,4 +24,20 @@
         <item name="android:textSize">16sp</item>
         <item name="android:layout_marginStart">@dimen/material_small</item>
     </style>
+
+    <style name="ChipText" parent="TextAppearance.MaterialComponents.Chip">
+        <item name="android:textSize">14sp</item>
+    </style>
+
+    <style name="ActionChip" parent="Widget.MaterialComponents.Chip.Action">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">56dp</item>
+        <item name="android:textAlignment">center</item>
+        <item name="android:textAppearance">@style/ChipText</item>
+        <item name="android:textColor">@color/black</item>
+        <item name="chipBackgroundColor">#D9D9D9</item>
+        <item name="checkedIconEnabled">false</item>
+        <item name="chipStartPadding">12dp</item>
+        <item name="chipEndPadding">12dp</item>
+    </style>
 </resources>

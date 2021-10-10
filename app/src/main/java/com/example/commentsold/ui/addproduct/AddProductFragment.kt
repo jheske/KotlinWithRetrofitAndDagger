@@ -1,21 +1,19 @@
 package com.example.commentsold.ui.addproduct
 
-import android.R
+import android.app.AlertDialog
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.AdapterView
 import android.widget.ArrayAdapter
-import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import com.example.commentsold.databinding.FragmentAddProductBinding
 import dagger.hilt.android.AndroidEntryPoint
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.navArgs
-import com.example.commentsold.ui.productdetails.ProductDetailsFragmentArgs
-import com.example.commentsold.utils.Keyboard
+import com.example.commentsold.R
+import com.example.commentsold.ui.products.ProductsActivity
 
 @AndroidEntryPoint
 class AddProductFragment : Fragment() {
@@ -27,6 +25,8 @@ class AddProductFragment : Fragment() {
     private val args: AddProductFragmentArgs by navArgs()
 
     private lateinit var binding: FragmentAddProductBinding
+
+    private var stylesList = arrayListOf<String>()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -45,50 +45,45 @@ class AddProductFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         viewModel.getStyles()
+        args.product?.let {
+            (activity as ProductsActivity).supportActionBar?.title = it.product_name
+        } ?: run {
+            (activity as ProductsActivity).supportActionBar?.title = getString(R.string.add_product)
+        }
     }
 
     private fun setupObservers() {
-        viewModel.productAddedSuccess.observe(viewLifecycleOwner, Observer {
+        viewModel.productAddOrUpdate.observe(viewLifecycleOwner, Observer {
             requireActivity().onBackPressed()
         })
-        viewModel.stylesList.observe(viewLifecycleOwner, Observer {
-            setupStylesAutocomplete(it)
-            args.product?.let {product ->
+        viewModel.stylesList.observe(viewLifecycleOwner, {
+            stylesList.addAll(it)
+            args.product?.let { product ->
                 viewModel.getProduct(product.id)
             }
         })
-
+        binding.selectStyleButton.setOnClickListener {
+            showSelectStyleDialog()
+        }
     }
 
-    private fun setupStylesAutocomplete(styles: List<String>) {
-        var style: String=""
-
-        val adapter = ArrayAdapter(
-            requireContext(),
-            R.layout.simple_dropdown_item_1line,
-            styles
-        )
-
-        binding.styleTextView.apply {
-            setAdapter(adapter)
-            // Auto complete threshold
-            // The minimum number of characters to type to show the drop down
-            threshold = 1
-
-            onItemClickListener =
-                AdapterView.OnItemClickListener { parent, view, position, id ->
-                    val selectedItem = parent.getItemAtPosition(position).toString()
-                    style = selectedItem
-                    Keyboard.dismiss(this)
-                }
-
-            setOnDismissListener { }
-            // Display the suggestion dropdown on focus
-            onFocusChangeListener = View.OnFocusChangeListener { view, b ->
-                if (b) {
-                    showDropDown()
+    private fun showSelectStyleDialog() {
+        AlertDialog.Builder(requireActivity()).apply {
+            setTitle("Select Genus")
+            val listAdapter: ArrayAdapter<String> =
+                ArrayAdapter(context, android.R.layout.select_dialog_item)
+            stylesList.forEach {
+                listAdapter.add(it)
+            }
+            setNegativeButton("Cancel") { dialog, _ ->
+                dialog.dismiss()
+            }
+            setAdapter(listAdapter) { _, which ->
+                listAdapter.let {
+                    binding.styleTextView.text = it.getItem(which)
                 }
             }
+            show()
         }
     }
 

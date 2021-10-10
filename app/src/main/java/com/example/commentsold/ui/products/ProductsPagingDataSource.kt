@@ -21,7 +21,7 @@ class ProductsPagingDataSource(
             val response = service.getProducts(pageNumber)
             val products = response.products
 
-            Log.d("ProductsPagingDataSource", "Service -> getProducts: ${products?.size}")
+            Log.d("ProductsPagingDataSource", "Service -> getProducts: ${products.size}")
 
             // 0 is the lowest page number. Return null to signify no more pages should
             // be loaded before it.

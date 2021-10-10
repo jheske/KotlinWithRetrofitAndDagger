@@ -8,7 +8,7 @@
     <fragment
         android:id="@+id/productListFragment"
         android:name="com.example.commentsold.ui.products.ProductListFragment"
-        android:label="ProductListFragment"
+        android:label="CommentSold Products"
         tools:layout="@layout/fragment_products">
         <action
             android:id="@+id/action_productListFragment_to_addProductFragment"
@@ -33,7 +33,7 @@
         android:name="com.example.commentsold.ui.productdetails.ProductDetailsFragment"
         android:label="ProductDetailsFragment" >
         <argument
-            android:name="productId"
-            app:argType="integer" />
+            android:name="product"
+            app:argType="com.example.commentsold.data.network.model.Product" />
     </fragment>
 </navigation>

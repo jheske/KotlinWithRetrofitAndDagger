@@ -6,6 +6,7 @@ buildscript {
         coroutinesVersion = "1.4.3"
         constraintLayoutVersion = "2.1.1"
         daggerHiltVersion = "2.39.1"
+        glideVersion = "4.11.0"
         hiltLifeCycleVersion = "1.0.0-alpha03"
         kotlinVersion = "1.5.21"
         kotlinCoreVersion = "1.6.0"

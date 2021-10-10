@@ -7,7 +7,7 @@
     android:layout_height="wrap_content">
 
     <androidx.cardview.widget.CardView
-        android:layout_width="178dp"
+        android:layout_width="@dimen/image_width"
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/material_med"
         app:cardUseCompatPadding="true"
@@ -25,12 +25,12 @@
             <ImageView
                 android:id="@+id/productImageView"
                 android:layout_width="match_parent"
-                android:layout_height="175dp"
+                android:layout_height="wrap_content"
                 android:layout_marginHorizontal="@dimen/material_xsmall"
                 android:adjustViewBounds="true"
                 android:contentDescription="@null"
                 android:scaleType="fitXY"
-                android:src="@drawable/airedale_tshirt"
+                tools:src="@drawable/airedale_tshirt"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />

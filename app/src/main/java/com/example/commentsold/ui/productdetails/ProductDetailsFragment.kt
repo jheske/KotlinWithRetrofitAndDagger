@@ -9,6 +9,7 @@ import androidx.fragment.app.viewModels
 import dagger.hilt.android.AndroidEntryPoint
 import androidx.navigation.fragment.navArgs
 import com.example.commentsold.databinding.FragmentProductDetailsBinding
+import com.example.commentsold.ui.products.ProductsActivity
 
 @AndroidEntryPoint
 class ProductDetailsFragment : Fragment() {
@@ -35,6 +36,7 @@ class ProductDetailsFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        viewModel.getProduct(args.productId)
+        (activity as ProductsActivity).supportActionBar?.title = args.product.product_name
+        viewModel.setupProduct(args.product)
     }
 }

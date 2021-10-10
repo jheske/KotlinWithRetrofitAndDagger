@@ -1,5 +1,6 @@
 package com.example.commentsold.ui.products
 
+import android.content.Context
 import androidx.recyclerview.widget.RecyclerView
 
 import android.view.LayoutInflater
@@ -8,8 +9,11 @@ import android.view.ViewGroup
 
 import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
+import com.bumptech.glide.Glide
+import com.example.commentsold.R
 import com.example.commentsold.data.network.model.Product
 import com.example.commentsold.databinding.ListItemProductBinding
+import com.example.commentsold.utils.Constants
 import javax.inject.Inject
 
 class ProductRecyclerAdapter @Inject constructor(
@@ -28,7 +32,7 @@ class ProductRecyclerAdapter @Inject constructor(
 
     override fun onBindViewHolder(holder: ProductViewHolder, position: Int) {
         getItem(position)?.let { product ->
-            holder.bind(product)
+            holder.bind(product, holder.itemView.context)
             holder.itemView.setOnClickListener {
                 onProductClicked(product)
             }
@@ -40,7 +44,7 @@ class ProductRecyclerAdapter @Inject constructor(
     ) :
         RecyclerView.ViewHolder(binding.root) {
 
-        fun bind(item: Product) = with(binding) {
+        fun bind(item: Product, context: Context) = with(binding) {
             binding.nameTextView.text = item.product_name
             val price = "$${item.shipping_price}"
             binding.priceTextView.text = price
@@ -50,6 +54,9 @@ class ProductRecyclerAdapter @Inject constructor(
             binding.deleteButtonHitArea.setOnClickListener {
                 onDeleteProductClicked(item)
             }
+            Glide.with(context)
+                .load(item.getImageUrl())
+                .into(binding.productImageView)
         }
     }
 

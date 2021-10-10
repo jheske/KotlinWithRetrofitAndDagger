@@ -23,6 +23,7 @@
     <string name="product_type">Product Type</string>
     <string name="price">Shipping Price</string>
     <string name="style">Style</string>
+    <string name="select_a_style">Select a Style</string>
     <string name="url">Url</string>
     <string name="created_at">Created at</string>
     <string name="updated_at">Updated at</string>

@@ -65,7 +65,7 @@ class ProductListFragment : Fragment() {
         recyclerViewAdapter = ProductRecyclerAdapter({
             findNavController().navigate(
                 ProductListFragmentDirections.actionProductListFragmentToProductDetailsFragment(
-                    it.id
+                    it
                 )
             )
         }, {
@@ -80,18 +80,16 @@ class ProductListFragment : Fragment() {
         binding.productRecyclerView.adapter = recyclerViewAdapter
 
         recyclerViewAdapter.addLoadStateListener {
-            Log.d(TAG, "loading state: $it")
             viewModel.onEvent(Event.LoadState(it))
         }
     }
 
     private fun setupObservers() {
         viewModel.obtainState.observe(viewLifecycleOwner, {
-            Log.d(TAG, "observeViewState obtainState result: ${it.adapterList.size}")
             render(it)
         })
-        viewModel.deleteError.observe (viewLifecycleOwner, {
-            val message = String.format(getString(R.string.error_deleting_product),it)
+        viewModel.deleteError.observe(viewLifecycleOwner, {
+            val message = String.format(getString(R.string.error_deleting_product), it)
             AlertDialog.Builder(requireActivity())
                 .setTitle(R.string.delete_product)
                 .setMessage(message)
@@ -102,7 +100,9 @@ class ProductListFragment : Fragment() {
 
     private fun render(state: ListViewState) {
         lifecycleScope.launch {
-            state.page?.let { recyclerViewAdapter.submitData(it) }
+            state.page?.let { pagingData ->
+                recyclerViewAdapter.submitData(pagingData)
+            }
         }
     }
 }

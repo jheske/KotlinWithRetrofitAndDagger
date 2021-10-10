@@ -80,8 +80,6 @@ class ProductListViewModel @Inject constructor(
     }
 
     private fun onLoadState(state: CombinedLoadStates) {
-        // TODO: Add mapper from throwable to human readable message
-        Log.d("Zivi", "loading state: $state")
         when (state.source.refresh) {
             is LoadState.Error -> {
                 val errorState = state.source.append as? LoadState.Error
@@ -104,7 +102,6 @@ class ProductListViewModel @Inject constructor(
     }
 
     override fun resultToViewState(result: Lce<Result>) {
-        Log.d("Zivi", "----- result $result")
         currentViewState = when (result) {
             //Loading state
             is Lce.Loading -> {
