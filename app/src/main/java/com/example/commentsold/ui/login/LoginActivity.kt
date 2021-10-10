@@ -1,5 +1,6 @@
 package com.example.commentsold.ui.login
 
+import android.app.AlertDialog
 import androidx.lifecycle.Observer
 import android.os.Bundle
 import androidx.annotation.StringRes
@@ -11,6 +12,7 @@ import android.widget.EditText
 import android.widget.ProgressBar
 import android.widget.Toast
 import androidx.activity.viewModels
+import com.example.commentsold.R
 import com.example.commentsold.databinding.ActivityLoginBinding
 import com.example.commentsold.data.network.NetworkResult
 import com.example.commentsold.di.SessionManager
@@ -115,6 +117,11 @@ class LoginActivity : AppCompatActivity() {
 
                 is NetworkResult.Error -> {
                     loading.visibility = View.GONE
+                    AlertDialog.Builder(this)
+                        .setTitle(R.string.login_failed)
+                        .setMessage(R.string.invalid_email_or_password)
+                        .setPositiveButton(R.string.ok, null)
+                        .show()
                 }
                 is NetworkResult.Loading -> {
                 }

@@ -1,5 +1,6 @@
 package com.example.commentsold.data.repository
 
+import android.util.Log
 import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.PagingData
@@ -36,6 +37,7 @@ class Repository @Inject constructor(
             })
         }.map { response ->
             response.data?.let {
+                Log.d("TAG","error = ${it.error}")
                 sessionManager.saveAuthToken(it.token)
             }
             response

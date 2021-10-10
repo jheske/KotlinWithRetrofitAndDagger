@@ -16,11 +16,6 @@ import javax.inject.Inject
 class ProductListViewModel @Inject constructor(
     private val repository: Repository
 ) : ViewModel() {
-
-    companion object {
-        const val TAG = "ProductListViewModel"
-    }
-
     val _deleteError = MutableLiveData<Int>()
     val deleteError: LiveData<Int> = _deleteError
 

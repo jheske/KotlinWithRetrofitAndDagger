@@ -5,9 +5,12 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import android.util.Patterns
 import androidx.lifecycle.viewModelScope
+import androidx.paging.PagingData
+import androidx.paging.cachedIn
 import com.example.commentsold.data.repository.Repository
 import com.example.commentsold.R
 import com.example.commentsold.data.network.NetworkResult
+import com.example.commentsold.data.network.model.Product
 import com.example.commentsold.data.network.model.ProductsPage
 import com.example.commentsold.data.network.model.StatusResponse
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -31,8 +34,8 @@ class LoginViewModel @Inject constructor(
 
     fun login(username: String, password: String) =
         viewModelScope.launch {
-            repository.login(username, password).collect { values ->
-                _loginResult.value = values
+            repository.login(username, password).collect { response ->
+                _loginResult.value = response
             }
         }
 
