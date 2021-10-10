@@ -8,6 +8,8 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import dagger.hilt.android.AndroidEntryPoint
 import androidx.navigation.fragment.navArgs
+import com.bumptech.glide.Glide
+import com.example.commentsold.R
 import com.example.commentsold.databinding.FragmentProductDetailsBinding
 import com.example.commentsold.ui.products.ProductsActivity
 
@@ -37,6 +39,11 @@ class ProductDetailsFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         (activity as ProductsActivity).supportActionBar?.title = args.product.product_name
+
         viewModel.setupProduct(args.product)
+
+        Glide.with(requireActivity())
+            .load(args.product.getImageUrl(400))
+            .into(binding.productImageView)
     }
 }

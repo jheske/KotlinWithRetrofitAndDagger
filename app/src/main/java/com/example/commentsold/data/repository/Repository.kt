@@ -49,7 +49,6 @@ class Repository @Inject constructor(
                 remoteDataSource.getProduct(productId)
             })
         }.map { response ->
-            Log.d("Repo",response.data?.product?.product_name ?: "empty product name")
             response
         }.flowOn(Dispatchers.IO)
     }
@@ -119,7 +118,6 @@ class Repository @Inject constructor(
     }
 
     fun getProducts(): Flow<PagingData<Product>> {
-        Log.d("Repository", "New page")
         return Pager(
             config = PagingConfig(
                 pageSize = 10,
@@ -127,5 +125,9 @@ class Repository @Inject constructor(
             ),
             pagingSourceFactory = { ProductsPagingDataSource(apiService) }
         ).flow
+            .map {
+                it
+            }
+            .flowOn(Dispatchers.IO)
     }
 }

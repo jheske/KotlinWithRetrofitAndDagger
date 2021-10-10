@@ -13,7 +13,6 @@ class RemoteDataSource @Inject constructor(private val apiService: ApiService) {
         apiService.getStatus("$username:$password".encode())
 
     suspend fun getProduct(productId: Int): Response<ProductResponse> {
-        Log.d("TAG","getproduct")
         return apiService.getProduct(productId)
     }
 

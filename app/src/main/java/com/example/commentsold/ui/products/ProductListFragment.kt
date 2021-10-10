@@ -2,7 +2,6 @@ package com.example.commentsold.ui.products
 
 import android.app.AlertDialog
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -12,9 +11,8 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.example.commentsold.R
 import com.example.commentsold.databinding.FragmentProductsBinding
-import com.example.commentsold.ui.common.Event
-import com.example.commentsold.ui.common.ListViewState
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
@@ -26,7 +24,7 @@ class ProductListFragment : Fragment() {
     private val viewModel by viewModels<ProductListViewModel>()
 
     private lateinit var binding: FragmentProductsBinding
-    lateinit var recyclerViewAdapter: ProductRecyclerAdapter
+    lateinit var pagingAdapter: ProductRecyclerAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -41,9 +39,13 @@ class ProductListFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         setupBindings()
         setupObservers()
-        if (savedInstanceState == null) {
-            lifecycleScope.launch {
-                viewModel.onSuspendedEvent(Event.ScreenLoad)
+        collectUiState()
+    }
+
+    private fun collectUiState() {
+        viewLifecycleOwner.lifecycleScope.launch {
+            viewModel.getProducts().collectLatest { products ->
+                pagingAdapter.submitData(products)
             }
         }
     }
@@ -62,47 +64,51 @@ class ProductListFragment : Fragment() {
     }
 
     private fun initAdapter() {
-        recyclerViewAdapter = ProductRecyclerAdapter({
-            findNavController().navigate(
-                ProductListFragmentDirections.actionProductListFragmentToProductDetailsFragment(
-                    it
+        pagingAdapter = ProductRecyclerAdapter(
+            onProductClicked = {
+                findNavController().navigate(
+                    ProductListFragmentDirections.actionProductListFragmentToProductDetailsFragment(
+                        it
+                    )
                 )
-            )
-        }, {
-            findNavController().navigate(
-                ProductListFragmentDirections.actionProductListFragmentToAddProductFragment(
-                    it
+            },
+            onEditProductClicked = {
+                findNavController().navigate(
+                    ProductListFragmentDirections.actionProductListFragmentToAddProductFragment(
+                        it
+                    )
                 )
-            )
-        }, {
-            viewModel.deleteProduct(it.id)
-        })
-        binding.productRecyclerView.adapter = recyclerViewAdapter
+            },
+            onDeleteProductClicked =  {
+                val message = String.format(getString(R.string.verify_delete_product, it.product_name))
+                AlertDialog.Builder(requireActivity())
+                    .setTitle(R.string.delete_product)
+                    .setMessage(message)
+                    .setCancelable(true)
+                    .setPositiveButton(R.string.ok) { _, _ ->
+                        viewModel.deleteProduct(it.id)
+                    }
+                    .setNegativeButton(R.string.cancel) { dialog, _ ->
+                        dialog.cancel()
+                    }
+                    .show()
+            }
+        )
 
-        recyclerViewAdapter.addLoadStateListener {
-            viewModel.onEvent(Event.LoadState(it))
-        }
+        binding.productRecyclerView.adapter = pagingAdapter
     }
 
     private fun setupObservers() {
-        viewModel.obtainState.observe(viewLifecycleOwner, {
-            render(it)
-        })
         viewModel.deleteError.observe(viewLifecycleOwner, {
             val message = String.format(getString(R.string.error_deleting_product), it)
             AlertDialog.Builder(requireActivity())
-                .setTitle(R.string.delete_product)
+                .setTitle(R.string.delete_product_error)
                 .setMessage(message)
                 .setPositiveButton(R.string.ok, null)
                 .show()
         })
-    }
-
-    private fun render(state: ListViewState) {
-        lifecycleScope.launch {
-            state.page?.let { pagingData ->
-                recyclerViewAdapter.submitData(pagingData)
-            }
-        }
+        viewModel.deleted.observe(viewLifecycleOwner,{
+            pagingAdapter.refresh()
+        })
     }
 }

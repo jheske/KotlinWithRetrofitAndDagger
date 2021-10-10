@@ -28,7 +28,9 @@
     <string name="created_at">Created at</string>
     <string name="updated_at">Updated at</string>
     <string name="edit">Edit product</string>
-    <string name="delete_product">Delete Error</string>
+    <string name="delete_product_error">Delete Error</string>
+    <string name="delete_product">Delete Product</string>
+    <string name="verify_delete_product">Delete %s?</string>
     <string name="error_deleting_product">Error deleting product id %d</string>
     <string name="alphanumeric">ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz1234567890</string>
 

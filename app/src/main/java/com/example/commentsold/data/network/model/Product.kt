@@ -22,11 +22,11 @@ data class Product(
     fun shippingPriceString() = shipping_price.toString()
     fun idString() = id.toString()
 
-    private fun getMockImageUrl() = "${Constants.MOCK_IMAGE_URL}?${(1..50).random()}"
+    private fun getMockImageUrl(size: Int) = "${Constants.MOCK_IMAGE_URL}/${size}?${(1..50).random()}"
 
-    fun getImageUrl(): String {
+    fun getImageUrl(size: Int=200): String {
         return if (url.isNullOrBlank())
-            getMockImageUrl()
+            getMockImageUrl(size)
         else
             url
     }
